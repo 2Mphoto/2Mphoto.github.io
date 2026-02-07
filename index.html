@@ -14,7 +14,7 @@
       position:relative;
       width:100%;
       height:100%;
-      background: url("assets/img/fond.jpg") center / cover no-repeat;
+      background: url("assets/img/fond.png") center / cover no-repeat;
     }
 
     /* Voile + grain léger */
@@ -51,3 +51,117 @@
     }
 
     /* Conteneur */
+    .container{
+      position:relative;
+      width:100%;
+      height:100%;
+    }
+
+    /* Boutons */
+    .btn{
+      position:absolute;
+      color:white;
+      text-decoration:none;
+      padding: 14px 26px;
+      border-radius: 999px;
+      font-size: 1.2rem;
+      font-weight: 600;
+
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.35);
+      backdrop-filter: blur(10px);
+
+      box-shadow: 0 14px 45px rgba(0,0,0,.35);
+      transform: translateZ(0);
+      transition: transform .25s ease, background .25s ease, box-shadow .25s ease, border-color .25s ease;
+      animation: pop .8s ease both;
+    }
+
+    /* Effet fun au hover */
+    .btn:hover{
+      transform: scale(1.14);
+      background: rgba(255,255,255,.24);
+      border-color: rgba(255,255,255,.55);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+
+    /* Liseré animé */
+    .btn::after{
+      content:"";
+      position:absolute; inset:-2px;
+      border-radius:999px;
+      background: conic-gradient(from 180deg,
+        rgba(255,255,255,.0),
+        rgba(255,255,255,.35),
+        rgba(255,255,255,.0));
+      opacity:0;
+      filter: blur(6px);
+      transition: opacity .25s ease;
+      z-index:-1;
+    }
+    .btn:hover::after{opacity:1}
+
+    /* Petit “pulse” doux */
+    .btn.pulse{
+      animation: pop .8s ease both, breathe 3.2s ease-in-out infinite 1s;
+    }
+
+    /* Positions (ajustables) */
+    .instant{ top: 22%; left: 50%; transform: translateX(-50%); }
+    .lieux{ top: 52%; left: 25%; }
+    .prestations{ top: 52%; right: 25%; }
+
+    /* Animation d’apparition */
+    @keyframes pop{
+      from{opacity:0; transform: translateY(10px) scale(.98);}
+      to{opacity:1; transform: translateY(0) scale(1);}
+    }
+    @keyframes breathe{
+      0%,100%{ transform: translateY(0) scale(1); }
+      50%{ transform: translateY(-2px) scale(1.02); }
+    }
+
+    /* Mobile: centrage plus simple */
+    @media (max-width: 700px){
+      .instant{ top: 18%; left: 50%; }
+      .lieux{ top: 50%; left: 50%; transform: translateX(-50%); }
+      .prestations{ top: 68%; right: auto; left: 50%; transform: translateX(-50%); }
+      .hero::after{opacity:.15}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero" id="hero">
+    <div class="spot" id="spot"></div>
+
+    <div class="container">
+      <a href="pages/instant.html" class="btn pulse instant">Instant</a>
+      <a href="pages/lieux.html" class="btn pulse lieux">Lieux</a>
+      <a href="pages/prestations.html" class="btn pulse prestations">Prestations</a>
+    </div>
+  </div>
+
+  <script>
+    // Spotlight qui suit la souris (et fonctionne aussi au touch)
+    const hero = document.getElementById("hero");
+    const spot = document.getElementById("spot");
+
+    function setSpot(x, y){
+      const r = hero.getBoundingClientRect();
+      const px = ((x - r.left) / r.width) * 100;
+      const py = ((y - r.top) / r.height) * 100;
+      spot.style.setProperty("--x", px + "%");
+      spot.style.setProperty("--y", py + "%");
+    }
+
+    hero.addEventListener("mousemove", (e) => setSpot(e.clientX, e.clientY));
+    hero.addEventListener("touchstart", (e) => {
+      if (e.touches && e.touches[0]) setSpot(e.touches[0].clientX, e.touches[0].clientY);
+    }, {passive:true});
+    hero.addEventListener("touchmove", (e) => {
+      if (e.touches && e.touches[0]) setSpot(e.touches[0].clientX, e.touches[0].clientY);
+    }, {passive:true});
+  </script>
+</body>
+</html>
