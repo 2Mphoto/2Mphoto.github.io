@@ -1,86 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accueil</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{height:100vh;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+
+    /* Fond */
+    .hero{
+      position:relative;
+      width:100%;
+      height:100%;
+      background: url("assets/img/fond.png") center / cover no-repeat;
     }
 
-    body {
-      height: 100vh;
-      overflow: hidden;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Voile + grain léger */
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(1200px 700px at 50% 40%, rgba(255,255,255,.10), rgba(0,0,0,.35) 55%, rgba(0,0,0,.55));
+      pointer-events:none;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 120px 120px;
+      opacity:.25;
+      pointer-events:none;
+      mix-blend-mode: overlay;
     }
 
-    /* CONTENEUR IMAGE */
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 80%;
-      background: url("assets/img/fond.jpg") center / cover no-repeat;
+    /* Spotlight (suit la souris) */
+    .spot{
+      position:absolute;
+      inset:-30%;
+      background: radial-gradient(600px 600px at var(--x, 50%) var(--y, 50%),
+        rgba(255,255,255,.18),
+        rgba(255,255,255,.06) 35%,
+        rgba(0,0,0,0) 70%);
+      pointer-events:none;
+      filter: blur(2px);
+      opacity:.9;
+      transition: opacity .25s ease;
     }
 
-    /* BOUTONS */
-    .btn {
-      position: absolute;
-      color: white;
-      text-decoration: none;
-      padding: 14px 26px;
-      border-radius: 40px;
-      font-size: 1.2rem;
-      font-weight: 500;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(6px);
-
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.15);
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    /* POSITIONS (AJUSTABLES) */
-    .instant {
-      top: 22%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .lieux {
-      top: 52%;
-      left: 25%;
-    }
-
-    .prestations {
-      top: 52%;
-      right: 25%;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="hero">
-
-    <a href="pages/instant.html" class="btn instant">
-      Instant
-    </a>
-
-    <a href="pages/lieux.html" class="btn lieux">
-      Lieux
-    </a>
-
-    <a href="pages/prestations.html" class="btn prestations">
-      Prestations
-    </a>
-
-  </div>
-</body>
-</html>
+    /* Conteneur */
