@@ -5,26 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Instant</title>
 
+  <!-- CSS global du site -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <!-- CSS spécifique Galerie (léger) -->
   <style>
-    :root{
-      --bg:#070a12;
-      --glass: rgba(255,255,255,.10);
-      --glass2: rgba(255,255,255,.16);
-      --line: rgba(255,255,255,.22);
-      --txt: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --shadow: 0 20px 70px rgba(0,0,0,.55);
-      --r: 18px;
-    }
-    *{box-sizing:border-box; margin:0; padding:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--txt); min-height:100vh; overflow:hidden}
-
     .stage{
-      position:relative; width:100vw; height:100vh;
-      display:grid; place-items:center;
+      width:100%;
+      min-height: calc(100vh - 72px);
+      display:grid;
+      place-items:center;
+      padding: 24px 0;
     }
 
-    /* Image principale */
     .viewer{
       position:relative;
       width:min(1100px, 92vw);
@@ -32,137 +25,139 @@
       border-radius: calc(var(--r) + 6px);
       overflow:hidden;
       box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
     }
+
     .img{
       position:absolute; inset:0;
       width:100%; height:100%;
       object-fit: cover;
       opacity:0;
-      transform: scale(1.06);
-      transition: opacity .6s ease, transform 1.8s ease;
+      transform: scale(1.04);
+      transition: opacity .55s ease, transform 1.6s ease;
       will-change: opacity, transform;
     }
-    .img.is-active{
-      opacity:1;
-      transform: scale(1.00);
-    }
+    .img.is-active{ opacity:1; transform: scale(1); }
 
-    /* Overlay gradient */
     .viewer::after{
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.20) 55%, rgba(0,0,0,.55));
+      background: linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.10) 45%, rgba(0,0,0,.62));
       pointer-events:none;
     }
 
-    /* Top bar */
     .topbar{
-      position:absolute; top:18px; left:18px; right:18px;
+      position:absolute;
+      top:18px; left:18px; right:18px;
       display:flex; align-items:center; justify-content:space-between;
-      gap:10px; z-index:5;
+      gap:10px;
+      z-index: 10;
     }
+
     .chip{
       display:inline-flex; align-items:center; gap:10px;
       padding:10px 12px;
       border-radius:999px;
-      background: var(--glass);
-      border:1px solid var(--line);
-      backdrop-filter: blur(8px);
+      background: rgba(11,13,18,.55);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+      color: rgba(244,245,247,.88);
+      font-weight: 700;
     }
-    .chip b{font-weight:650}
-    .chip span{color:var(--muted); font-size:14px}
-    .btn{
-      appearance:none; border:1px solid var(--line);
-      background: var(--glass);
-      color:var(--txt);
-      padding:10px 12px;
-      border-radius:999px;
-      cursor:pointer;
-      text-decoration:none;
-      backdrop-filter: blur(8px);
-      transition: transform .18s ease, background .18s ease;
-      user-select:none;
-      display:inline-flex; align-items:center; gap:8px;
-    }
-    .btn:hover{ transform: scale(1.05); background: var(--glass2); }
+    .chip span{ color: var(--muted); font-weight: 600; font-size: 14px; }
 
-    /* Nav buttons */
     .nav{
       position:absolute; inset:0;
       display:flex; align-items:center; justify-content:space-between;
       padding: 0 14px;
-      z-index:5;
+      z-index: 10;
       pointer-events:none;
     }
     .nav button{
       pointer-events:auto;
-      width:44px; height:44px;
+      width:46px; height:46px;
       border-radius:999px;
-      border:1px solid var(--line);
+      border:1px solid rgba(255,255,255,.18);
       background: rgba(0,0,0,.28);
-      color:var(--txt);
+      color: var(--txt);
       cursor:pointer;
       display:grid; place-items:center;
-      transition: transform .18s ease, background .18s ease;
-      backdrop-filter: blur(8px);
-    }
-    .nav button:hover{ transform: scale(1.08); background: rgba(0,0,0,.40); }
-
-    /* Thumbs */
-    .thumbs{
-      position:absolute; left:18px; right:18px; bottom:18px;
-      z-index:6;
-      display:flex; gap:10px;
-      overflow:auto;
-      padding:10px;
-      border-radius: var(--r);
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.14);
+      font-size: 22px;
       backdrop-filter: blur(10px);
-      scrollbar-width: thin;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
     }
-    .thumbs::-webkit-scrollbar{height:10px}
-    .thumbs::-webkit-scrollbar-thumb{background: rgba(255,255,255,.22); border-radius:999px}
-    .thumb{
-      flex: 0 0 auto;
-      width: 92px; height: 58px;
-      border-radius: 12px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.16);
-      cursor:pointer;
-      opacity:.75;
-      transform: translateZ(0);
-      transition: transform .16s ease, opacity .16s ease, border-color .16s ease;
-      background: rgba(255,255,255,.06);
+    .nav button:hover{
+      transform: scale(1.08);
+      background: rgba(0,0,0,.40);
+      border-color: rgba(255,255,255,.28);
     }
-    .thumb:hover{ transform: scale(1.05); opacity: .95; }
-    .thumb.is-active{ opacity: 1; border-color: rgba(255,255,255,.45); }
-    .thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
 
-    /* Help */
     .hint{
-      position:absolute; bottom: 94px; left: 18px;
-      z-index:7;
-      color: rgba(255,255,255,.72);
+      position:absolute;
+      bottom:94px; left:18px;
+      z-index: 11;
+      color: rgba(244,245,247,.72);
       font-size: 13px;
       background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.12);
       padding: 8px 10px;
       border-radius: 999px;
       backdrop-filter: blur(10px);
     }
 
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .img{ transition: opacity .2s linear; transform:none; }
-      .btn, .nav button, .thumb{ transition:none; }
+    .thumbs{
+      position:absolute;
+      left:18px; right:18px; bottom:18px;
+      z-index: 11;
+      display:flex; gap:10px;
+      overflow:auto;
+      padding:10px;
+      border-radius: var(--r);
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(12px);
+      scrollbar-width: thin;
+    }
+    .thumbs::-webkit-scrollbar{ height: 10px; }
+    .thumbs::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.20); border-radius:999px; }
+
+    .thumb{
+      flex: 0 0 auto;
+      width: 92px; height: 58px;
+      border-radius: 12px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      opacity: .72;
+      transition: transform .16s ease, opacity .16s ease, border-color .16s ease;
+    }
+    .thumb:hover{ transform: scale(1.05); opacity: .95; }
+    .thumb.is-active{ opacity: 1; border-color: rgba(255,255,255,.40); }
+    .thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+
+    @media (max-width: 720px){
+      .stage{ min-height: calc(100vh - 64px); padding: 14px 0; }
+      .nav button{ width:44px; height:44px; }
+      .thumb{ width:84px; height:54px; }
     }
   </style>
 </head>
 
 <body>
+  <!-- Header du site (même style que l’accueil) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Retour accueil">
+        <span class="brand-mark">2M</span><span class="brand-text">photo</span>
+      </a>
+      <nav class="nav">
+        <a class="btn btn--small" href="../index.html">Accueil</a>
+      </nav>
+    </div>
+  </header>
+
   <main class="stage">
     <section class="viewer" aria-label="Galerie Instant">
       <div class="topbar">
@@ -170,7 +165,7 @@
           <b id="title">Instant</b>
           <span id="counter">0 / 0</span>
         </div>
-        <a class="btn" href="../index.html" title="Retour accueil">⟵ Accueil</a>
+        <a class="btn btn--small btn--ghost" href="../index.html" title="Retour accueil">⟵ Accueil</a>
       </div>
 
       <div class="nav" aria-hidden="false">
@@ -178,7 +173,6 @@
         <button id="next" type="button" aria-label="Photo suivante">›</button>
       </div>
 
-      <!-- Double buffer pour transitions -->
       <img id="imgA" class="img is-active" alt="" />
       <img id="imgB" class="img" alt="" />
 
@@ -188,7 +182,6 @@
   </main>
 
   <script>
-    // CONFIG
     const MANIFEST_URL = "../assets/img/instant/manifest.json";
     const BASE_PATH = "../assets/img/instant/";
 
@@ -206,53 +199,35 @@
     let idx = 0;
     let isBusy = false;
 
-    function setCounter() {
-      counterEl.textContent = `${idx + 1} / ${images.length}`;
-    }
-
-    function setActiveThumb() {
-      [...thumbsEl.children].forEach((t, i) => {
-        t.classList.toggle("is-active", i === idx);
-      });
+    function setCounter(){ counterEl.textContent = `${idx + 1} / ${images.length}`; }
+    function setActiveThumb(){
+      [...thumbsEl.children].forEach((t, i) => t.classList.toggle("is-active", i === idx));
       const active = thumbsEl.children[idx];
       if (active) active.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
     }
-
-    async function preload(src) {
+    async function preload(src){
       return new Promise((resolve, reject) => {
         const im = new Image();
-        im.onload = () => resolve();
+        im.onload = resolve;
         im.onerror = () => reject(new Error("Image non trouvée: " + src));
         im.src = src;
       });
     }
-
-    async function show(i) {
+    async function show(i){
       if (!images.length) return;
       const target = (i + images.length) % images.length;
-      if (target === idx && front.src) return;
-
       if (isBusy) return;
       isBusy = true;
 
       const src = BASE_PATH + images[target];
-
-      try {
-        await preload(src);
-      } catch (e) {
-        console.warn(e);
-        isBusy = false;
-        return;
-      }
+      try{ await preload(src); } catch(e){ console.warn(e); isBusy=false; return; }
 
       back.src = src;
       back.alt = `${titleEl.textContent} — ${target + 1}`;
-      // Transition
       back.classList.add("is-active");
       front.classList.remove("is-active");
 
-      // swap after transition
-      setTimeout(() => {
+      setTimeout(()=>{
         const tmp = front; front = back; back = tmp;
         idx = target;
         setCounter();
@@ -260,22 +235,19 @@
         isBusy = false;
       }, 650);
     }
-
-    function buildThumbs() {
+    function buildThumbs(){
       thumbsEl.innerHTML = "";
       images.forEach((name, i) => {
         const t = document.createElement("button");
         t.type = "button";
         t.className = "thumb";
-        t.title = `Voir ${i + 1}`;
-        t.setAttribute("aria-label", `Voir la photo ${i + 1}`);
 
         const im = document.createElement("img");
         im.loading = "lazy";
         im.src = BASE_PATH + name;
         im.alt = `Miniature ${i + 1}`;
-        t.appendChild(im);
 
+        t.appendChild(im);
         t.addEventListener("click", () => show(i));
         thumbsEl.appendChild(t);
       });
@@ -284,26 +256,22 @@
     function next(){ show(idx + 1); }
     function prev(){ show(idx - 1); }
 
-    // Clavier
     window.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
     });
 
-    // Swipe mobile
-    let sx = null, sy = null;
+    let sx=null, sy=null;
     const viewer = document.querySelector(".viewer");
     viewer.addEventListener("touchstart", (e) => {
       if (!e.touches?.length) return;
-      sx = e.touches[0].clientX;
-      sy = e.touches[0].clientY;
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY;
     }, {passive:true});
     viewer.addEventListener("touchend", (e) => {
       if (sx === null) return;
       const ex = e.changedTouches[0].clientX;
       const ey = e.changedTouches[0].clientY;
-      const dx = ex - sx;
-      const dy = ey - sy;
+      const dx = ex - sx, dy = ey - sy;
       sx = null; sy = null;
       if (Math.abs(dx) < 35 || Math.abs(dx) < Math.abs(dy)) return;
       if (dx < 0) next(); else prev();
@@ -312,19 +280,13 @@
     prevBtn.addEventListener("click", prev);
     nextBtn.addEventListener("click", next);
 
-    // Init
     (async () => {
       const res = await fetch(MANIFEST_URL, {cache:"no-store"});
       const data = await res.json();
       titleEl.textContent = data.title || "Instant";
       images = Array.isArray(data.images) ? data.images : [];
-      if (!images.length) {
-        counterEl.textContent = "0 / 0";
-        front.alt = "Aucune image";
-        return;
-      }
+      if (!images.length){ counterEl.textContent = "0 / 0"; return; }
       buildThumbs();
-      // Affiche la première
       front.src = BASE_PATH + images[0];
       front.alt = `${titleEl.textContent} — 1`;
       idx = 0;
