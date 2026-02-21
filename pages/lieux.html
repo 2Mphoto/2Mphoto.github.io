@@ -4,36 +4,174 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lieux</title>
-  <!-- Même CSS que Instant -->
+
+  <!-- Ton style global -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <!-- CSS spécifique galerie (si pas déjà mis dans style.css) -->
   <style>
-    :root{--bg:#070a12;--glass:rgba(255,255,255,.10);--glass2:rgba(255,255,255,.16);--line:rgba(255,255,255,.22);--txt:rgba(255,255,255,.92);--muted:rgba(255,255,255,.72);--shadow:0 20px 70px rgba(0,0,0,.55);--r:18px}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow:hidden}
-    .stage{position:relative;width:100vw;height:100vh;display:grid;place-items:center}
-    .viewer{position:relative;width:min(1100px,92vw);aspect-ratio:16/10;border-radius:calc(var(--r) + 6px);overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
-    .img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .6s ease,transform 1.8s ease;will-change:opacity,transform}
-    .img.is-active{opacity:1;transform:scale(1.00)}
-    .viewer::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.20) 55%,rgba(0,0,0,.55));pointer-events:none}
-    .topbar{position:absolute;top:18px;left:18px;right:18px;display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:5}
-    .chip{display:inline-flex;align-items:center;gap:10px;padding:10px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(8px)}
-    .chip b{font-weight:650}.chip span{color:var(--muted);font-size:14px}
-    .btn{appearance:none;border:1px solid var(--line);background:var(--glass);color:var(--txt);padding:10px 12px;border-radius:999px;cursor:pointer;text-decoration:none;backdrop-filter:blur(8px);transition:transform .18s ease,background .18s ease;user-select:none;display:inline-flex;align-items:center;gap:8px}
-    .btn:hover{transform:scale(1.05);background:var(--glass2)}
-    .nav{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:5;pointer-events:none}
-    .nav button{pointer-events:auto;width:44px;height:44px;border-radius:999px;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--txt);cursor:pointer;display:grid;place-items:center;transition:transform .18s ease,background .18s ease;backdrop-filter:blur(8px)}
-    .nav button:hover{transform:scale(1.08);background:rgba(0,0,0,.40)}
-    .thumbs{position:absolute;left:18px;right:18px;bottom:18px;z-index:6;display:flex;gap:10px;overflow:auto;padding:10px;border-radius:var(--r);background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);scrollbar-width:thin}
-    .thumbs::-webkit-scrollbar{height:10px}.thumbs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.22);border-radius:999px}
-    .thumb{flex:0 0 auto;width:92px;height:58px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.16);cursor:pointer;opacity:.75;transition:transform .16s ease,opacity .16s ease,border-color .16s ease;background:rgba(255,255,255,.06)}
-    .thumb:hover{transform:scale(1.05);opacity:.95}
-    .thumb.is-active{opacity:1;border-color:rgba(255,255,255,.45)}
-    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .hint{position:absolute;bottom:94px;left:18px;z-index:7;color:rgba(255,255,255,.72);font-size:13px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.14);padding:8px 10px;border-radius:999px;backdrop-filter:blur(10px)}
-    @media (prefers-reduced-motion: reduce){.img{transition:opacity .2s linear;transform:none}.btn,.nav button,.thumb{transition:none}}
+    /* Galerie Viewer (Lieux) — cohérent avec ton thème */
+    .stage{
+      width:100%;
+      min-height: calc(100vh - 72px);
+      display:grid;
+      place-items:center;
+      padding: 24px 0;
+    }
+
+    .viewer{
+      position:relative;
+      width:min(1100px, 92vw);
+      aspect-ratio: 16/10;
+      border-radius: calc(var(--r) + 6px);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+
+    .img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      opacity:0;
+      transform: scale(1.04);
+      transition: opacity .55s ease, transform 1.6s ease;
+      will-change: opacity, transform;
+    }
+    .img.is-active{ opacity:1; transform: scale(1); }
+
+    .viewer::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.10) 45%, rgba(0,0,0,.62));
+      pointer-events:none;
+    }
+
+    .topbar{
+      position:absolute;
+      top:18px; left:18px; right:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      z-index: 10;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(11,13,18,.55);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+      color: rgba(244,245,247,.88);
+      font-weight: 700;
+    }
+    .chip span{ color: var(--muted); font-weight: 600; font-size: 14px; }
+
+    .nav{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 0 14px;
+      z-index: 10;
+      pointer-events:none;
+    }
+    .nav button{
+      pointer-events:auto;
+      width:46px; height:46px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.28);
+      color: var(--txt);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      font-size: 22px;
+      backdrop-filter: blur(10px);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .nav button:hover{
+      transform: scale(1.08);
+      background: rgba(0,0,0,.40);
+      border-color: rgba(255,255,255,.28);
+    }
+
+    .hint{
+      position:absolute;
+      bottom:94px;
+      left:18px;
+      z-index: 11;
+      color: rgba(244,245,247,.72);
+      font-size: 13px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 8px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+    }
+
+    .thumbs{
+      position:absolute;
+      left:18px; right:18px; bottom:18px;
+      z-index: 11;
+      display:flex;
+      gap:10px;
+      overflow:auto;
+      padding:10px;
+      border-radius: var(--r);
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(12px);
+      scrollbar-width: thin;
+    }
+    .thumbs::-webkit-scrollbar{ height: 10px; }
+    .thumbs::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.20); border-radius:999px; }
+
+    .thumb{
+      flex: 0 0 auto;
+      width: 92px; height: 58px;
+      border-radius: 12px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      opacity: .72;
+      transition: transform .16s ease, opacity .16s ease, border-color .16s ease;
+    }
+    .thumb:hover{ transform: scale(1.05); opacity: .95; }
+    .thumb.is-active{ opacity:1; border-color: rgba(255,255,255,.40); }
+    .thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+
+    @media (max-width: 720px){
+      .stage{ min-height: calc(100vh - 64px); padding: 14px 0; }
+      .nav button{ width:44px; height:44px; }
+      .thumb{ width:84px; height:54px; }
+    }
   </style>
 </head>
 
 <body>
+  <!-- Header (même style que ton site) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Retour accueil">
+        <span class="brand-mark">2M</span><span class="brand-text">photo</span>
+      </a>
+      <nav class="nav">
+        <a class="btn btn--small" href="../index.html">Accueil</a>
+      </nav>
+    </div>
+  </header>
+
   <main class="stage">
     <section class="viewer" aria-label="Galerie Lieux">
       <div class="topbar">
@@ -41,7 +179,7 @@
           <b id="title">Lieux</b>
           <span id="counter">0 / 0</span>
         </div>
-        <a class="btn" href="../index.html" title="Retour accueil">⟵ Accueil</a>
+        <a class="btn btn--small btn--ghost" href="../index.html" title="Retour accueil">⟵ Accueil</a>
       </div>
 
       <div class="nav">
