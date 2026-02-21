@@ -3,165 +3,277 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Accueil</title>
-
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{height:100vh;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-
-    /* Fond */
-    .hero{
-      position:relative;
-      width:100%;
-      height:100%;
-      background: url("assets/img/fond.jpg") center / cover no-repeat;
-    }
-
-    /* Voile + grain léger */
-    .hero::before{
-      content:"";
-      position:absolute; inset:0;
-      background: radial-gradient(1200px 700px at 50% 40%, rgba(255,255,255,.10), rgba(0,0,0,.35) 55%, rgba(0,0,0,.55));
-      pointer-events:none;
-    }
-    .hero::after{
-      content:"";
-      position:absolute; inset:0;
-      background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 120px 120px;
-      opacity:.25;
-      pointer-events:none;
-      mix-blend-mode: overlay;
-    }
-
-    /* Spotlight (suit la souris) */
-    .spot{
-      position:absolute;
-      inset:-30%;
-      background: radial-gradient(600px 600px at var(--x, 50%) var(--y, 50%),
-        rgba(255,255,255,.18),
-        rgba(255,255,255,.06) 35%,
-        rgba(0,0,0,0) 70%);
-      pointer-events:none;
-      filter: blur(2px);
-      opacity:.9;
-      transition: opacity .25s ease;
-    }
-
-    /* Conteneur */
-    .container{
-      position:relative;
-      width:100%;
-      height:100%;
-    }
-
-    /* Boutons */
-    .btn{
-      position:absolute;
-      color:white;
-      text-decoration:none;
-      padding: 14px 26px;
-      border-radius: 999px;
-      font-size: 1.2rem;
-      font-weight: 600;
-
-      background: rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.35);
-      backdrop-filter: blur(10px);
-
-      box-shadow: 0 14px 45px rgba(0,0,0,.35);
-      transform: translateZ(0);
-      transition: transform .25s ease, background .25s ease, box-shadow .25s ease, border-color .25s ease;
-      animation: pop .8s ease both;
-    }
-
-    /* Effet fun au hover */
-    .btn:hover{
-      transform: scale(1.14);
-      background: rgba(255,255,255,.24);
-      border-color: rgba(255,255,255,.55);
-      box-shadow: 0 18px 60px rgba(0,0,0,.45);
-    }
-
-    /* Liseré animé */
-    .btn::after{
-      content:"";
-      position:absolute; inset:-2px;
-      border-radius:999px;
-      background: conic-gradient(from 180deg,
-        rgba(255,255,255,.0),
-        rgba(255,255,255,.35),
-        rgba(255,255,255,.0));
-      opacity:0;
-      filter: blur(6px);
-      transition: opacity .25s ease;
-      z-index:-1;
-    }
-    .btn:hover::after{opacity:1}
-
-    /* Petit “pulse” doux */
-    .btn.pulse{
-      animation: pop .8s ease both, breathe 3.2s ease-in-out infinite 1s;
-    }
-
-    /* Positions (ajustables) */
-    .instant{ top: 22%; left: 50%; transform: translateX(-50%); }
-    .lieux{ top: 52%; left: 25%; }
-    .prestations{ top: 52%; right: 25%; }
-
-    /* Animation d’apparition */
-    @keyframes pop{
-      from{opacity:0; transform: translateY(10px) scale(.98);}
-      to{opacity:1; transform: translateY(0) scale(1);}
-    }
-    @keyframes breathe{
-      0%,100%{ transform: translateY(0) scale(1); }
-      50%{ transform: translateY(-2px) scale(1.02); }
-    }
-
-    /* Mobile: centrage plus simple */
-    @media (max-width: 700px){
-      .instant{ top: 18%; left: 50%; }
-      .lieux{ top: 50%; left: 50%; transform: translateX(-50%); }
-      .prestations{ top: 68%; right: auto; left: 50%; transform: translateX(-50%); }
-      .hero::after{opacity:.15}
-    }
-  </style>
+  <title>2Mphoto — Photographe</title>
+  <meta name="description" content="Photographe — portraits corporate, séances, événements. Montpellier & alentours." />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body>
-  <div class="hero" id="hero">
-    <div class="spot" id="spot"></div>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Retour accueil">
+        <span class="brand-mark">2M</span>
+        <span class="brand-text">photo</span>
+      </a>
 
-    <div class="container">
-      <a href="pages/instant.html" class="btn pulse instant">Instant</a>
-      <a href="pages/lieux.html" class="btn pulse lieux">Lieux</a>
-      <a href="pages/prestations.html" class="btn pulse prestations">Prestations</a>
+      <nav class="nav" aria-label="Navigation principale">
+        <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#services">Prestations</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#process">Déroulé</a></li>
+          <li><a href="#tarifs">Tarifs</a></li>
+          <li><a class="btn btn--small" href="#contact">Réserver</a></li>
+        </ul>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <script>
-    // Spotlight qui suit la souris (et fonctionne aussi au touch)
-    const hero = document.getElementById("hero");
-    const spot = document.getElementById("spot");
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-media" role="img" aria-label="Photographie portrait"></div>
+      <div class="container hero-inner">
+        <p class="kicker">Portraits & image professionnelle</p>
+        <h1>Des portraits corporate qui inspirent confiance.</h1>
+        <p class="lead">
+          Séances rapides, direction naturelle, retouche soignée. Pour LinkedIn, sites web, équipes & dirigeants.
+        </p>
 
-    function setSpot(x, y){
-      const r = hero.getBoundingClientRect();
-      const px = ((x - r.left) / r.width) * 100;
-      const py = ((y - r.top) / r.height) * 100;
-      spot.style.setProperty("--x", px + "%");
-      spot.style.setProperty("--y", py + "%");
-    }
+        <div class="hero-cta">
+          <a class="btn" href="#contact">Réserver une séance</a>
+          <a class="btn btn--ghost" href="#services">Voir les prestations</a>
+        </div>
 
-    hero.addEventListener("mousemove", (e) => setSpot(e.clientX, e.clientY));
-    hero.addEventListener("touchstart", (e) => {
-      if (e.touches && e.touches[0]) setSpot(e.touches[0].clientX, e.touches[0].clientY);
-    }, {passive:true});
-    hero.addEventListener("touchmove", (e) => {
-      if (e.touches && e.touches[0]) setSpot(e.touches[0].clientX, e.touches[0].clientY);
-    }, {passive:true});
-  </script>
+        <div class="hero-badges" aria-label="Points forts">
+          <div class="badge">📍 Montpellier & alentours</div>
+          <div class="badge">⏱️ Livraison rapide</div>
+          <div class="badge">✨ Retouche naturelle</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <h2>Prestations</h2>
+          <p>Une approche simple : préparer, shooter, sublimer — sans sur-retouche.</p>
+        </div>
+
+        <div class="grid grid-4">
+          <a class="card" href="pages/portrait-corporate.html">
+            <img src="assets/img/services/corporate.jpg" alt="Portrait corporate" />
+            <div class="card-body">
+              <h3>Portrait corporate</h3>
+              <p>Dirigeants, équipes, LinkedIn.</p>
+              <span class="card-link">Découvrir →</span>
+            </div>
+          </a>
+
+          <a class="card" href="pages/instant.html">
+            <img src="assets/img/services/instant.jpg" alt="Instant" />
+            <div class="card-body">
+              <h3>Instant</h3>
+              <p>Moments, reportage, storytelling.</p>
+              <span class="card-link">Voir →</span>
+            </div>
+          </a>
+
+          <a class="card" href="pages/lieux.html">
+            <img src="assets/img/services/lieux.jpg" alt="Lieux" />
+            <div class="card-body">
+              <h3>Lieux</h3>
+              <p>Architecture, intérieur, ambiance.</p>
+              <span class="card-link">Voir →</span>
+            </div>
+          </a>
+
+          <a class="card" href="pages/prestations.html">
+            <img src="assets/img/services/prestations.jpg" alt="Prestations" />
+            <div class="card-body">
+              <h3>Prestations & tarifs</h3>
+              <p>Formules claires, devis rapide.</p>
+              <span class="card-link">Consulter →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bandeau image + texte -->
+    <section class="split">
+      <div class="split-media" style="background-image:url('assets/img/gallery/01.jpg');"></div>
+      <div class="split-content">
+        <div class="container">
+          <h2>Un rendu premium, sans artifices.</h2>
+          <p>
+            Direction posée, lumière maîtrisée, retouche propre. L’objectif : une image cohérente avec votre métier,
+            et facile à décliner sur tous vos supports.
+          </p>
+          <ul class="ticks">
+            <li>Conseils tenues & couleurs</li>
+            <li>Guidage pendant la séance</li>
+            <li>Sélection & retouches naturelles</li>
+          </ul>
+          <a class="btn btn--ghost" href="#contact">Demander une date</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galerie -->
+    <section class="section" id="galerie">
+      <div class="container">
+        <div class="section-head">
+          <h2>Galerie</h2>
+          <p>Quelques exemples (à remplacer par tes images).</p>
+        </div>
+
+        <div class="masonry">
+          <img src="assets/img/gallery/01.jpg" alt="Photo 1" />
+          <img src="assets/img/gallery/02.jpg" alt="Photo 2" />
+          <img src="assets/img/gallery/03.jpg" alt="Photo 3" />
+          <img src="assets/img/gallery/04.jpg" alt="Photo 4" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head">
+          <h2>Déroulé</h2>
+          <p>Une méthode simple et efficace, pensée pour les pros.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-n">1</div>
+            <h3>Préparation</h3>
+            <p>Brief rapide, choix du style, conseils tenue & lieu.</p>
+          </div>
+          <div class="step">
+            <div class="step-n">2</div>
+            <h3>Shooting</h3>
+            <p>Direction fluide, variations, ambiance détendue.</p>
+          </div>
+          <div class="step">
+            <div class="step-n">3</div>
+            <h3>Sélection</h3>
+            <p>Tri + choix des images, validation de l’intention.</p>
+          </div>
+          <div class="step">
+            <div class="step-n">4</div>
+            <h3>Retouche</h3>
+            <p>Peau naturelle, contraste propre, rendu premium.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tarifs -->
+    <section class="section" id="tarifs">
+      <div class="container">
+        <div class="section-head">
+          <h2>Tarifs</h2>
+          <p>Exemples (tu remplaces par tes vrais prix).</p>
+        </div>
+
+        <div class="pricing">
+          <div class="price-card">
+            <h3>Essentiel</h3>
+            <div class="price">80€</div>
+            <p class="muted">1 personne • 20 min</p>
+            <ul>
+              <li>3 photos retouchées</li>
+              <li>Fond neutre ou extérieur</li>
+              <li>Livraison 72h</li>
+            </ul>
+            <a class="btn btn--ghost" href="#contact">Réserver</a>
+          </div>
+
+          <div class="price-card price-card--featured">
+            <div class="pill">Le + choisi</div>
+            <h3>Corporate</h3>
+            <div class="price">180€</div>
+            <p class="muted">1 personne • 45 min</p>
+            <ul>
+              <li>8 photos retouchées</li>
+              <li>2 tenues</li>
+              <li>Livraison 48h</li>
+            </ul>
+            <a class="btn" href="#contact">Réserver</a>
+          </div>
+
+          <div class="price-card">
+            <h3>Équipe</h3>
+            <div class="price">Sur devis</div>
+            <p class="muted">Entreprise • sur site</p>
+            <ul>
+              <li>Organisation & planning</li>
+              <li>Rendu uniforme</li>
+              <li>Déclinaisons web/print</li>
+            </ul>
+            <a class="btn btn--ghost" href="#contact">Demander un devis</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section--dark" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Réserver / Contact</h2>
+          <p>Envoie un message (formulaire simple — tu peux le relier à Formspree plus tard).</p>
+        </div>
+
+        <div class="contact">
+          <form class="form" action="#" method="post" onsubmit="return false;">
+            <div class="row">
+              <label>Nom
+                <input required type="text" placeholder="Ton nom" />
+              </label>
+              <label>Email
+                <input required type="email" placeholder="ton@email.com" />
+              </label>
+            </div>
+            <label>Message
+              <textarea required rows="5" placeholder="Type de séance, date souhaitée, lieu…"></textarea>
+            </label>
+            <button class="btn" type="submit">Envoyer</button>
+            <p class="muted small">Astuce : je peux te brancher un vrai envoi email ensuite.</p>
+          </form>
+
+          <div class="contact-side">
+            <div class="contact-box">
+              <h3>Infos</h3>
+              <p class="muted">
+                📍 Montpellier • ⏱️ Réponse rapide<br />
+                Shooting studio / extérieur / entreprise
+              </p>
+            </div>
+            <div class="contact-box">
+              <h3>Réseaux</h3>
+              <p class="muted">
+                Instagram • LinkedIn • etc.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <span>© <span id="y"></span> 2Mphoto</span>
+          <span class="muted">Fait avec GitHub Pages</span>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
