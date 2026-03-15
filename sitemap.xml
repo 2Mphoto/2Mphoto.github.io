@@ -21,6 +21,16 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://2mphoto.github.io/pages/instant.html</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://2mphoto.github.io/pages/lieux.html</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://2mphoto.github.io/pages/viewer.html?g=instant</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>

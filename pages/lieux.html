@@ -2,10 +2,176 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="refresh" content="0;url=viewer.html?g=lieux" />
-  <title>Lieux — 2Mphoto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lieux — 2Mphoto Montpellier</title>
+  <meta name="description" content="Photographie de lieux à Montpellier — architecture, intérieurs, commerce, immobilier. Mise en valeur soignée de vos espaces." />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://2mphoto.github.io/pages/lieux.html" />
+  <meta property="og:title"       content="Lieux — 2Mphoto" />
+  <meta property="og:description" content="Photographie d'architecture et d'intérieurs à Montpellier. Commerce, immobilier, espaces — des images qui mettent en valeur chaque lieu." />
+  <meta property="og:image"       content="https://2mphoto.github.io/assets/img/services/lieux.jpg" />
+  <meta name="twitter:card"       content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
+
 <body>
-  <script>location.replace("viewer.html?g=lieux");</script>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="2Mphoto — Retour accueil">
+        <span class="brand-mark">2M</span>
+        <span class="brand-text">photo</span>
+      </a>
+      <nav class="site-nav" aria-label="Navigation">
+        <a class="btn btn--small" href="../index.html#contact">Réserver</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero hero--sm">
+    <div class="hero-media" style="background:
+      linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.15) 48%, rgba(0,0,0,.68)),
+      url('../assets/img/services/lieux.jpg') center/cover no-repeat;">
+    </div>
+    <div class="container hero-inner">
+      <p class="kicker">Prestation</p>
+      <h1>Photographie de lieux</h1>
+      <p class="lead">Architecture, intérieur, commerce, immobilier — chaque espace mérite d'être montré sous son meilleur jour.</p>
+      <div class="hero-cta">
+        <a class="btn" href="../index.html#contact">Demander un devis</a>
+        <a class="btn btn--ghost" href="viewer.html?g=lieux">Voir la galerie</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ce que je photographie -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Ce que je photographie</h2>
+        <p>Des espaces qui racontent quelque chose — avec lumière, cadrage et soin du détail.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step reveal reveal-d1">
+          <div class="step-n">✓</div>
+          <h3>Architecture</h3>
+          <p>Façades, volumes, perspectives — l'âme d'un bâtiment en images.</p>
+        </div>
+        <div class="step reveal reveal-d2">
+          <div class="step-n">✓</div>
+          <h3>Intérieurs</h3>
+          <p>Décoration, ambiance, mise en scène — valoriser chaque pièce.</p>
+        </div>
+        <div class="step reveal reveal-d3">
+          <div class="step-n">✓</div>
+          <h3>Commerce & restauration</h3>
+          <p>Vitrines, salles, terrasses — des photos qui donnent envie d'entrer.</p>
+        </div>
+        <div class="step reveal reveal-d4">
+          <div class="step-n">✓</div>
+          <h3>Immobilier</h3>
+          <p>Biens à vendre ou à louer — des visuels qui font la différence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Split approche -->
+  <section class="split" id="approche">
+    <div class="split-media">
+      <img src="../assets/img/gallery/03.jpg" alt="Photographie architecture intérieur" loading="lazy" decoding="async" />
+    </div>
+    <div class="split-content">
+      <div class="container">
+        <h2 class="reveal">Lumière maîtrisée,<br>composition soignée.</h2>
+        <p class="reveal reveal-d1">
+          La photographie de lieux demande patience et précision. Je travaille la lumière
+          naturelle et artificielle, les angles et la mise en scène pour que chaque image
+          transmette l'atmosphère réelle de l'espace.
+        </p>
+        <ul class="ticks reveal reveal-d2">
+          <li>Repérage & choix des meilleurs angles</li>
+          <li>Correction de la lumière en post-traitement</li>
+          <li>Livraison en haute résolution, prête à l'emploi</li>
+        </ul>
+        <a class="btn btn--ghost reveal reveal-d3" href="../index.html#contact">Parler de votre projet</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Galerie</h2>
+        <p>Quelques exemples — chaque lieu est unique, chaque prestation aussi.</p>
+      </div>
+      <div class="masonry reveal reveal-d1">
+        <img src="../assets/img/gallery/01.jpg" alt="Lieux exemple 1" loading="lazy" decoding="async" />
+        <img src="../assets/img/gallery/02.jpg" alt="Lieux exemple 2" loading="lazy" decoding="async" />
+        <img src="../assets/img/gallery/03.jpg" alt="Lieux exemple 3" loading="lazy" decoding="async" />
+        <img src="../assets/img/gallery/04.jpg" alt="Lieux exemple 4" loading="lazy" decoding="async" />
+      </div>
+      <div style="text-align:center; margin-top:32px">
+        <a class="btn btn--ghost reveal reveal-d2" href="viewer.html?g=lieux">Voir toute la galerie →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarif -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Tarif</h2>
+        <p>Selon la taille du lieu et le nombre de vues souhaitées — devis gratuit sous 24h.</p>
+      </div>
+
+      <div class="pricing" style="grid-template-columns: 1fr 1fr; max-width: 740px">
+        <div class="price-card reveal reveal-d1">
+          <h3>Petit espace</h3>
+          <div class="price">À partir de<br><span style="font-size:38px">120€</span></div>
+          <p class="muted" style="margin:8px 0 0">Studio, appartement, boutique</p>
+          <ul>
+            <li>10 vues retouchées</li>
+            <li>Livraison sous 72h</li>
+            <li>Fichiers haute résolution</li>
+          </ul>
+          <a class="btn btn--ghost" href="../index.html#contact">Demander un devis</a>
+        </div>
+
+        <div class="price-card price-card--featured reveal reveal-d2">
+          <div class="pill">Le + demandé</div>
+          <h3>Grand espace</h3>
+          <div class="price">À partir de<br><span style="font-size:38px">250€</span></div>
+          <p class="muted" style="margin:8px 0 0">Restaurant, commerce, maison</p>
+          <ul>
+            <li>25 vues retouchées</li>
+            <li>Livraison sous 72h</li>
+            <li>Fichiers haute résolution</li>
+          </ul>
+          <a class="btn" href="../index.html#contact">Réserver</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark">
+    <div class="container" style="text-align:center">
+      <div class="section-head reveal" style="align-items:center; text-align:center">
+        <h2>Votre espace mérite mieux.</h2>
+        <p>Envoyez-moi quelques mots sur votre lieu et vos besoins — je vous propose un devis sous 24h.</p>
+      </div>
+      <a class="btn reveal reveal-d1" href="../index.html#contact">Demander un devis</a>
+    </div>
+  </section>
+
+  <script src="../assets/js/main.js"></script>
 </body>
 </html>
