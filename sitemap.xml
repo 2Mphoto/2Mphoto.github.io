@@ -16,6 +16,11 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://2mphoto.github.io/pages/mariage.html</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://2mphoto.github.io/pages/viewer.html?g=instant</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
