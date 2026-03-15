@@ -3,141 +3,131 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prestations — 2Mphoto</title>
+  <title>Prestations & Tarifs — 2Mphoto Montpellier</title>
+  <meta name="description" content="Toutes les prestations photo : mariage, portrait, groupes de musique, événements. Tarifs clairs, devis rapide. Photographe à Montpellier." />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://2mphoto.github.io/pages/prestations.html" />
+  <meta property="og:title"       content="Prestations & Tarifs — 2Mphoto" />
+  <meta property="og:description" content="Mariage, portrait, groupes de musique, événements. Formules claires, devis rapide." />
+  <meta property="og:image"       content="https://2mphoto.github.io/assets/img/services/prestations.jpg" />
+  <meta name="twitter:card"       content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <!-- CSS global du site -->
   <link rel="stylesheet" href="../assets/css/style.css" />
 
-  <!-- CSS spécifique Prestations -->
+  <!-- CSS spécifique Prestations (layout carte flottante) -->
   <style>
-    .page{
-      min-height: calc(100vh - 72px);
+    .page {
+      min-height: calc(100vh - 62px);
       background:
-        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.20) 45%, rgba(0,0,0,.70)),
+        linear-gradient(180deg, rgba(0,0,0,.58), rgba(0,0,0,.18) 45%, rgba(0,0,0,.72)),
         url("../assets/img/fond.jpg") center / cover no-repeat;
-      display:grid;
-      place-items:center;
-      padding: 26px 0;
+      display: grid;
+      place-items: center;
+      padding: 28px 0;
       position: relative;
-      border-top: 1px solid rgba(255,255,255,.08);
+      border-top: 1px solid rgba(255,255,255,.07);
     }
-
-    .wrap{
+    .wrap {
       position: relative;
       width: min(1120px, 92vw);
-      min-height: 70vh;
+      min-height: 72vh;
     }
-
-    /* Titre central */
-    .center-title{
-      position:absolute;
-      top:50%;
-      left:50%;
+    .center-title {
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      text-align:center;
+      text-align: center;
       z-index: 2;
-      pointer-events:none;
+      pointer-events: none;
     }
-    .center-title h1{
-      margin:0;
-      font-size: clamp(28px, 4.2vw, 54px);
-      letter-spacing: 2px;
-      line-height: 1.05;
-    }
-    .center-title p{
-      margin:10px 0 0;
-      color: rgba(244,245,247,.78);
+    .center-title h1 {
+      margin: 0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(30px, 4.5vw, 56px);
+      letter-spacing: 3px;
+      text-transform: uppercase;
       font-weight: 600;
     }
-
-    /* Cartes */
-    .p-card{
-      position:absolute;
-      width: min(360px, 86vw);
-      text-decoration:none;
+    .center-title p {
+      margin: 12px 0 0;
+      color: rgba(244,245,247,.72);
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: .3px;
+    }
+    .p-card {
+      position: absolute;
+      width: min(340px, 86vw);
+      text-decoration: none;
       color: var(--txt);
       border-radius: var(--r);
-      overflow:hidden;
-
-      background: rgba(255,255,255,.10);
+      overflow: hidden;
+      background: rgba(11,13,18,.60);
       border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       box-shadow: var(--shadow);
-
-      transition: transform .22s ease, background .22s ease, border-color .22s ease;
+      transition: transform .26s ease, background .26s ease, border-color .26s ease;
       z-index: 3;
     }
-    .p-card:hover{
-      transform: scale(1.06);
-      background: rgba(255,255,255,.14);
-      border-color: rgba(255,255,255,.22);
+    .p-card:hover {
+      transform: scale(1.06) !important;
+      background: rgba(11,13,18,.72);
+      border-color: rgba(200,169,126,.30);
     }
+    .p-card img {
+      width: 100%; height: 180px;
+      object-fit: cover; display: block;
+    }
+    .p-body {
+      padding: 14px 18px 18px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .p-body h2 {
+      margin: 0; font-size: 18px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 700;
+    }
+    .p-body p { margin: 0; color: rgba(244,245,247,.76); line-height: 1.5; font-size: 14px }
+    .p-price  { margin-top: 6px; font-weight: 900; color: var(--accent) }
 
-    .p-card img{
-      width:100%;
-      height: 190px;
-      object-fit: cover;
-      display:block;
-      filter: saturate(1.02) contrast(1.02);
-    }
+    /* Positions */
+    .mariage { top: 7%;    left: 50%; transform: translateX(-50%) }
+    .portrait { top: 44%;  left: 4% }
+    .groupe   { top: 44%;  right: 4% }
+    .autres   { bottom: 5%; left: 50%; transform: translateX(-50%) }
 
-    .p-body{
-      padding: 14px 16px 16px;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-    .p-body h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing:.2px;
-    }
-    .p-body p{
-      margin:0;
-      color: rgba(244,245,247,.80);
-      line-height:1.45;
-    }
-    .p-price{
-      margin-top:6px;
-      font-weight: 900;
-      color: rgba(244,245,247,.92);
-    }
-
-    /* Positions (proches de ton design) */
-    .mariage { top: 8%; left: 50%; transform: translateX(-50%); }
-    .portrait { top: 45%; left: 4%; }
-    .groupe { top: 45%; right: 4%; }
-    .autres { bottom: 6%; left: 50%; transform: translateX(-50%); }
-
-    /* Mobile : on empile */
-    @media (max-width: 980px){
-      .wrap{ min-height:auto; }
-      .center-title{
-        position: static;
-        transform:none;
-        margin: 18px 0 22px;
-        pointer-events:auto;
+    /* Mobile */
+    @media (max-width: 980px) {
+      .wrap        { min-height: auto }
+      .center-title {
+        position: static; transform: none;
+        margin: 18px 0 24px; pointer-events: auto;
       }
-      .p-card{
-        position: static;
-        transform:none !important;
+      .p-card {
+        position: static; transform: none !important;
         margin: 14px auto;
         width: min(520px, 92vw);
       }
-      .page{ padding: 18px 0 28px; }
+      .page { padding: 20px 0 32px }
     }
   </style>
 </head>
 
 <body>
-  <!-- Header cohérent -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="../index.html" aria-label="Retour accueil">
-        <span class="brand-mark">2M</span><span class="brand-text">photo</span>
+      <a class="brand" href="../index.html" aria-label="2Mphoto — Retour accueil">
+        <span class="brand-mark">2M</span>
+        <span class="brand-text">photo</span>
       </a>
-      <nav class="nav">
-        <a class="btn btn--small" href="../index.html">Accueil</a>
+      <nav class="site-nav" aria-label="Navigation">
+        <a class="btn btn--small btn--ghost" href="../index.html">← Accueil</a>
       </nav>
     </div>
   </header>
@@ -145,13 +135,12 @@
   <main class="page">
     <div class="wrap">
       <div class="center-title">
-        <h1>PRESTATIONS</h1>
-        <p>Formules claires • Devis rapide</p>
+        <h1>Prestations</h1>
+        <p>Formules claires · Devis rapide</p>
       </div>
 
-      <!-- Tu peux rendre chaque carte cliquable vers une page dédiée si tu veux -->
-      <a class="p-card mariage" href="#mariage" aria-label="Tarifs Mariage">
-        <img src="../assets/img/prestations/mariage.jpg" alt="Mariage">
+      <a class="p-card mariage" href="#mariage" aria-label="Mariage — à partir de 480€">
+        <img src="../assets/img/prestations/mariage.jpg" alt="Mariage" loading="lazy" decoding="async" />
         <div class="p-body">
           <h2>Mariage</h2>
           <p>Reportage, préparation, cérémonie, soirée.</p>
@@ -159,8 +148,8 @@
         </div>
       </a>
 
-      <a class="p-card portrait" href="../pages/portrait-corporate.html" aria-label="Tarifs Portrait">
-        <img src="../assets/img/prestations/portrait.jpg" alt="Portrait">
+      <a class="p-card portrait" href="portrait-corporate.html" aria-label="Portrait — à partir de 80€">
+        <img src="../assets/img/prestations/portrait.jpg" alt="Portrait" loading="lazy" decoding="async" />
         <div class="p-body">
           <h2>Portrait</h2>
           <p>Corporate, lifestyle, LinkedIn.</p>
@@ -168,8 +157,8 @@
         </div>
       </a>
 
-      <a class="p-card groupe" href="#groupe" aria-label="Tarifs Groupes de musique">
-        <img src="../assets/img/prestations/groupe.jpg" alt="Groupes de musique">
+      <a class="p-card groupe" href="#groupe" aria-label="Groupes de musique — à partir de 180€">
+        <img src="../assets/img/prestations/groupe.jpg" alt="Groupes de musique" loading="lazy" decoding="async" />
         <div class="p-body">
           <h2>Groupes de musique</h2>
           <p>Promo, live, presse, identité visuelle.</p>
@@ -177,8 +166,8 @@
         </div>
       </a>
 
-      <a class="p-card autres" href="#autres" aria-label="Autres prestations">
-        <img src="../assets/img/prestations/autre.jpg" alt="Autres">
+      <a class="p-card autres" href="#autres" aria-label="Autres prestations — sur devis">
+        <img src="../assets/img/prestations/autre.jpg" alt="Autres prestations" loading="lazy" decoding="async" />
         <div class="p-body">
           <h2>Autres</h2>
           <p>Événements, lieux, projets sur mesure.</p>

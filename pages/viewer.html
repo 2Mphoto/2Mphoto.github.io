@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Galerie — 2Mphoto</title>
+  <meta name="description" content="Galerie photo — 2Mphoto, photographe à Montpellier." />
+
+  <!-- Open Graph -->
+  <meta property="og:type"  content="website" />
+  <meta property="og:title" content="Galerie — 2Mphoto" />
+  <meta property="og:image" content="https://2mphoto.github.io/assets/img/hero.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="2Mphoto — Retour accueil">
+        <span class="brand-mark">2M</span>
+        <span class="brand-text">photo</span>
+      </a>
+      <nav class="site-nav" aria-label="Navigation">
+        <a class="btn btn--small btn--ghost" href="../index.html">← Accueil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="viewer-stage">
+    <section class="viewer" aria-label="Galerie photos">
+
+      <!-- Topbar -->
+      <div class="v-topbar">
+        <div class="v-chip">
+          <b id="v-title">Galerie</b>
+          <span id="v-counter">— / —</span>
+        </div>
+        <a class="btn btn--small btn--ghost" href="../index.html">← Accueil</a>
+      </div>
+
+      <!-- Flèches -->
+      <div class="v-arrows" aria-hidden="true">
+        <button id="v-prev" type="button" aria-label="Photo précédente">‹</button>
+        <button id="v-next" type="button" aria-label="Photo suivante">›</button>
+      </div>
+
+      <!-- Images (double buffer cross-fade) -->
+      <img id="v-imgA" class="v-img is-active" alt="" />
+      <img id="v-imgB" class="v-img" alt="" />
+
+      <!-- Hint swipe -->
+      <div class="v-hint" id="v-hint" aria-hidden="true">← Swipe · Flèches clavier →</div>
+
+      <!-- Miniatures -->
+      <div class="v-thumbs" id="v-thumbs" aria-label="Miniatures"></div>
+
+    </section>
+  </main>
+
+  <script>
+    /* ---- Paramètre galerie ---- */
+    const params  = new URLSearchParams(location.search);
+    const GALLERY = ["instant", "lieux"].includes(params.get("g")) ? params.get("g") : "instant";
+
+    const MANIFEST = `../assets/img/${GALLERY}/manifest.json`;
+    const BASE     = `../assets/img/${GALLERY}/`;
+
+    /* ---- Éléments DOM ---- */
+    const titleEl   = document.getElementById("v-title");
+    const counterEl = document.getElementById("v-counter");
+    const thumbsEl  = document.getElementById("v-thumbs");
+    const hintEl    = document.getElementById("v-hint");
+    const prevBtn   = document.getElementById("v-prev");
+    const nextBtn   = document.getElementById("v-next");
+    const imgA      = document.getElementById("v-imgA");
+    const imgB      = document.getElementById("v-imgB");
+
+    /* ---- État ---- */
+    let images = [];
+    let idx    = 0;
+    let busy   = false;
+    let front  = imgA;
+    let back   = imgB;
+
+    /* ---- Hint auto-hide ---- */
+    let hintTimer = setTimeout(() => hintEl.classList.add("is-hidden"), 3500);
+    const resetHint = () => {
+      clearTimeout(hintTimer);
+      hintEl.classList.remove("is-hidden");
+      hintTimer = setTimeout(() => hintEl.classList.add("is-hidden"), 2000);
+    };
+
+    /* ---- Helpers ---- */
+    const setCounter = () => {
+      counterEl.textContent = images.length ? `${idx + 1} / ${images.length}` : "— / —";
+    };
+    const setActiveThumb = () => {
+      [...thumbsEl.children].forEach((t, i) => t.classList.toggle("is-active", i === idx));
+      const active = thumbsEl.children[idx];
+      if (active) active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    };
+    const preload = (src) => new Promise((res, rej) => {
+      const im = new Image();
+      im.onload  = res;
+      im.onerror = () => rej(new Error("Image introuvable : " + src));
+      im.src     = src;
+    });
+
+    /* ---- Affichage image ---- */
+    async function show(i) {
+      if (!images.length || busy) return;
+      const target = ((i % images.length) + images.length) % images.length;
+      busy = true;
+
+      const src = BASE + images[target];
+      try {
+        await preload(src);
+      } catch (e) {
+        console.warn(e);
+        busy = false;
+        return;
+      }
+
+      back.src = src;
+      back.alt = `${titleEl.textContent} — ${target + 1}`;
+      back.classList.add("is-active");
+      front.classList.remove("is-active");
+
+      setTimeout(() => {
+        [front, back] = [back, front];
+        idx  = target;
+        busy = false;
+        setCounter();
+        setActiveThumb();
+        resetHint();
+      }, 650);
+    }
+
+    const next = () => show(idx + 1);
+    const prev = () => show(idx - 1);
+
+    /* ---- Miniatures ---- */
+    function buildThumbs() {
+      thumbsEl.innerHTML = "";
+      images.forEach((name, i) => {
+        const btn = document.createElement("button");
+        btn.type      = "button";
+        btn.className = "v-thumb";
+        btn.setAttribute("aria-label", `Photo ${i + 1}`);
+
+        const im = document.createElement("img");
+        im.loading = "lazy";
+        im.decoding = "async";
+        im.src = BASE + name;
+        im.alt = "";
+
+        btn.appendChild(im);
+        btn.addEventListener("click", () => show(i));
+        thumbsEl.appendChild(btn);
+      });
+    }
+
+    /* ---- Contrôles ---- */
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
+
+    window.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft")  prev();
+    });
+
+    /* ---- Swipe mobile ---- */
+    let sx = null, sy = null;
+    const viewer = document.querySelector(".viewer");
+    viewer.addEventListener("touchstart", e => {
+      if (!e.touches?.length) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+    }, { passive: true });
+    viewer.addEventListener("touchend", e => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      const dy = e.changedTouches[0].clientY - sy;
+      sx = null; sy = null;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      dx < 0 ? next() : prev();
+    }, { passive: true });
+
+    /* ---- Chargement manifest ---- */
+    (async () => {
+      try {
+        const res  = await fetch(MANIFEST);
+        const data = await res.json();
+
+        titleEl.textContent  = data.title || GALLERY;
+        document.title       = `${data.title || GALLERY} — 2Mphoto`;
+        images = Array.isArray(data.images) ? data.images : [];
+
+        if (!images.length) {
+          counterEl.textContent = "0 / 0";
+          return;
+        }
+
+        buildThumbs();
+        front.src = BASE + images[0];
+        front.alt = `${titleEl.textContent} — 1`;
+        idx = 0;
+        setCounter();
+        setActiveThumb();
+
+      } catch (err) {
+        console.error("Erreur chargement galerie :", err);
+        titleEl.textContent   = "Erreur";
+        counterEl.textContent = "—";
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -3,25 +3,37 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>2Mphoto — Photographe</title>
-  <meta name="description" content="Photographe — portraits corporate, séances, événements. Montpellier & alentours." />
+  <title>2Mphoto — Photographe à Montpellier</title>
+  <meta name="description" content="Photographe à Montpellier — portraits corporate, séances individuelles, lieux & événements. Livraison rapide, retouche naturelle." />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://2mphoto.github.io/" />
+  <meta property="og:title"       content="2Mphoto — Photographe à Montpellier" />
+  <meta property="og:description" content="Portraits corporate, séances, événements. Montpellier & alentours. Retouche naturelle, livraison rapide." />
+  <meta property="og:image"       content="https://2mphoto.github.io/assets/img/hero.jpg" />
+  <meta name="twitter:card"       content="summary_large_image" />
+
+  <!-- Fonts preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body>
-  <!-- Header -->
+  <!-- ===== Header ===== -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Retour accueil">
+      <a class="brand" href="#top" aria-label="2Mphoto — Retour accueil">
         <span class="brand-mark">2M</span>
         <span class="brand-text">photo</span>
       </a>
 
-      <nav class="nav" aria-label="Navigation principale">
+      <nav class="site-nav" aria-label="Navigation principale">
         <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
-
         <ul class="nav-links" id="navLinks">
           <li><a href="#services">Prestations</a></li>
           <li><a href="#galerie">Galerie</a></li>
@@ -34,21 +46,21 @@
   </header>
 
   <main id="top">
-    <!-- Hero -->
+
+    <!-- ===== Hero ===== -->
     <section class="hero">
       <div class="hero-media" role="img" aria-label="Photographie portrait"></div>
       <div class="container hero-inner">
         <p class="kicker">Portraits & image professionnelle</p>
-        <h1>Des portraits corporate qui inspirent confiance.</h1>
+        <h1>Des portraits corporate<br>qui inspirent confiance.</h1>
         <p class="lead">
-          Séances rapides, direction naturelle, retouche soignée. Pour LinkedIn, sites web, équipes & dirigeants.
+          Séances rapides, direction naturelle, retouche soignée.
+          Pour LinkedIn, sites web, équipes & dirigeants.
         </p>
-
         <div class="hero-cta">
           <a class="btn" href="#contact">Réserver une séance</a>
           <a class="btn btn--ghost" href="#services">Voir les prestations</a>
         </div>
-
         <div class="hero-badges" aria-label="Points forts">
           <div class="badge">📍 Montpellier & alentours</div>
           <div class="badge">⏱️ Livraison rapide</div>
@@ -57,17 +69,19 @@
       </div>
     </section>
 
-    <!-- Services -->
+    <!-- ===== Services ===== -->
     <section class="section" id="services">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <h2>Prestations</h2>
           <p>Une approche simple : préparer, shooter, sublimer — sans sur-retouche.</p>
         </div>
 
         <div class="grid grid-4">
-          <a class="card" href="pages/portrait-corporate.html">
-            <img src="assets/img/services/corporate.jpg" alt="Portrait corporate" />
+          <a class="card reveal reveal-d1" href="pages/portrait-corporate.html">
+            <div class="card-img-wrap">
+              <img src="assets/img/services/corporate.jpg" alt="Portrait corporate" loading="lazy" decoding="async" />
+            </div>
             <div class="card-body">
               <h3>Portrait corporate</h3>
               <p>Dirigeants, équipes, LinkedIn.</p>
@@ -75,8 +89,10 @@
             </div>
           </a>
 
-          <a class="card" href="pages/instant.html">
-            <img src="assets/img/services/instant.jpg" alt="Instant" />
+          <a class="card reveal reveal-d2" href="pages/viewer.html?g=instant">
+            <div class="card-img-wrap">
+              <img src="assets/img/services/instant.jpg" alt="Photographie instant" loading="lazy" decoding="async" />
+            </div>
             <div class="card-body">
               <h3>Instant</h3>
               <p>Moments, reportage, storytelling.</p>
@@ -84,8 +100,10 @@
             </div>
           </a>
 
-          <a class="card" href="pages/lieux.html">
-            <img src="assets/img/services/lieux.jpg" alt="Lieux" />
+          <a class="card reveal reveal-d3" href="pages/viewer.html?g=lieux">
+            <div class="card-img-wrap">
+              <img src="assets/img/services/lieux.jpg" alt="Photographie de lieux" loading="lazy" decoding="async" />
+            </div>
             <div class="card-body">
               <h3>Lieux</h3>
               <p>Architecture, intérieur, ambiance.</p>
@@ -93,8 +111,10 @@
             </div>
           </a>
 
-          <a class="card" href="pages/prestations.html">
-            <img src="assets/img/services/prestations.jpg" alt="Prestations" />
+          <a class="card reveal reveal-d4" href="pages/prestations.html">
+            <div class="card-img-wrap">
+              <img src="assets/img/services/prestations.jpg" alt="Toutes les prestations" loading="lazy" decoding="async" />
+            </div>
             <div class="card-body">
               <h3>Prestations & tarifs</h3>
               <p>Formules claires, devis rapide.</p>
@@ -105,70 +125,70 @@
       </div>
     </section>
 
-    <!-- Bandeau image + texte -->
+    <!-- ===== Split ===== -->
     <section class="split">
       <div class="split-media">
-        <img src="assets/img/gallery/01.jpg" alt="Exemple portrait">
+        <img src="assets/img/gallery/01.jpg" alt="Exemple portrait corporate" loading="lazy" decoding="async" />
       </div>
       <div class="split-content">
         <div class="container">
-          <h2>Un rendu premium, sans artifices.</h2>
-          <p>
-            Direction posée, lumière maîtrisée, retouche propre. L’objectif : une image cohérente avec votre métier,
-            et facile à décliner sur tous vos supports.
+          <h2 class="reveal">Un rendu premium, sans artifices.</h2>
+          <p class="reveal reveal-d1">
+            Direction posée, lumière maîtrisée, retouche propre. L'objectif : une image cohérente
+            avec votre métier, facile à décliner sur tous vos supports.
           </p>
-          <ul class="ticks">
+          <ul class="ticks reveal reveal-d2">
             <li>Conseils tenues & couleurs</li>
             <li>Guidage pendant la séance</li>
             <li>Sélection & retouches naturelles</li>
           </ul>
-          <a class="btn btn--ghost" href="#contact">Demander une date</a>
+          <a class="btn btn--ghost reveal reveal-d3" href="#contact">Demander une date</a>
         </div>
       </div>
     </section>
 
-    <!-- Galerie -->
+    <!-- ===== Galerie ===== -->
     <section class="section" id="galerie">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <h2>Galerie</h2>
-          <p>Quelques exemples (à remplacer par tes images).</p>
+          <p>Un aperçu de l'univers visuel — cliquez sur une photo pour l'agrandir.</p>
         </div>
 
-        <div class="masonry">
-          <img src="assets/img/gallery/01.jpg" alt="Photo 1" />
-          <img src="assets/img/gallery/02.jpg" alt="Photo 2" />
-          <img src="assets/img/gallery/03.jpg" alt="Photo 3" />
-          <img src="assets/img/gallery/04.jpg" alt="Photo 4" />
+        <div class="masonry reveal reveal-d1">
+          <img src="assets/img/gallery/01.jpg" alt="Portrait en extérieur" loading="lazy" decoding="async" />
+          <img src="assets/img/gallery/02.jpg" alt="Portrait corporate studio" loading="lazy" decoding="async" />
+          <img src="assets/img/gallery/03.jpg" alt="Shooting lifestyle" loading="lazy" decoding="async" />
+          <img src="assets/img/gallery/04.jpg" alt="Portrait équipe" loading="lazy" decoding="async" />
         </div>
       </div>
     </section>
 
-    <!-- Process -->
+    <!-- ===== Process ===== -->
     <section class="section" id="process">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <h2>Déroulé</h2>
           <p>Une méthode simple et efficace, pensée pour les pros.</p>
         </div>
 
         <div class="steps">
-          <div class="step">
+          <div class="step reveal reveal-d1">
             <div class="step-n">1</div>
             <h3>Préparation</h3>
             <p>Brief rapide, choix du style, conseils tenue & lieu.</p>
           </div>
-          <div class="step">
+          <div class="step reveal reveal-d2">
             <div class="step-n">2</div>
             <h3>Shooting</h3>
             <p>Direction fluide, variations, ambiance détendue.</p>
           </div>
-          <div class="step">
+          <div class="step reveal reveal-d3">
             <div class="step-n">3</div>
             <h3>Sélection</h3>
-            <p>Tri + choix des images, validation de l’intention.</p>
+            <p>Tri + choix des images, validation de l'intention.</p>
           </div>
-          <div class="step">
+          <div class="step reveal reveal-d4">
             <div class="step-n">4</div>
             <h3>Retouche</h3>
             <p>Peau naturelle, contraste propre, rendu premium.</p>
@@ -177,19 +197,19 @@
       </div>
     </section>
 
-    <!-- Tarifs -->
+    <!-- ===== Tarifs ===== -->
     <section class="section" id="tarifs">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <h2>Tarifs</h2>
-          <p>Exemples (tu remplaces par tes vrais prix).</p>
+          <p>Des formules claires — sans surprises.</p>
         </div>
 
         <div class="pricing">
-          <div class="price-card">
+          <div class="price-card reveal reveal-d1">
             <h3>Essentiel</h3>
             <div class="price">80€</div>
-            <p class="muted">1 personne • 20 min</p>
+            <p class="muted">1 personne · 20 min</p>
             <ul>
               <li>3 photos retouchées</li>
               <li>Fond neutre ou extérieur</li>
@@ -198,11 +218,11 @@
             <a class="btn btn--ghost" href="#contact">Réserver</a>
           </div>
 
-          <div class="price-card price-card--featured">
+          <div class="price-card price-card--featured reveal reveal-d2">
             <div class="pill">Le + choisi</div>
             <h3>Corporate</h3>
             <div class="price">180€</div>
-            <p class="muted">1 personne • 45 min</p>
+            <p class="muted">1 personne · 45 min</p>
             <ul>
               <li>8 photos retouchées</li>
               <li>2 tenues</li>
@@ -211,10 +231,10 @@
             <a class="btn" href="#contact">Réserver</a>
           </div>
 
-          <div class="price-card">
+          <div class="price-card reveal reveal-d3">
             <h3>Équipe</h3>
-            <div class="price">Sur devis</div>
-            <p class="muted">Entreprise • sur site</p>
+            <div class="price" style="font-size:32px">Sur devis</div>
+            <p class="muted">Entreprise · sur site</p>
             <ul>
               <li>Organisation & planning</li>
               <li>Rendu uniforme</li>
@@ -226,43 +246,47 @@
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- ===== Contact ===== -->
     <section class="section section--dark" id="contact">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <h2>Réserver / Contact</h2>
-          <p>Envoie un message (formulaire simple — tu peux le relier à Formspree plus tard).</p>
+          <p>Un projet ? Une date ? Dis-moi tout.</p>
         </div>
 
         <div class="contact">
-          <form class="form" action="#" method="post" onsubmit="return false;">
+          <!-- Formulaire — remplace YOUR_FORMSPREE_ID par ton ID Formspree -->
+          <form class="form reveal" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
             <div class="row">
               <label>Nom
-                <input required type="text" placeholder="Ton nom" />
+                <input name="name" required type="text" placeholder="Ton nom" autocomplete="name" />
               </label>
               <label>Email
-                <input required type="email" placeholder="ton@email.com" />
+                <input name="email" required type="email" placeholder="ton@email.com" autocomplete="email" />
               </label>
             </div>
             <label>Message
-              <textarea required rows="5" placeholder="Type de séance, date souhaitée, lieu…"></textarea>
+              <textarea name="message" required rows="5" placeholder="Type de séance, date souhaitée, lieu…"></textarea>
             </label>
-            <button class="btn" type="submit">Envoyer</button>
-            <p class="muted small">Astuce : je peux te brancher un vrai envoi email ensuite.</p>
+            <div class="form-submit-row">
+              <button class="btn" type="submit">Envoyer</button>
+              <span class="form-status" aria-live="polite"></span>
+            </div>
           </form>
 
-          <div class="contact-side">
+          <div class="contact-side reveal reveal-d1">
             <div class="contact-box">
               <h3>Infos</h3>
-              <p class="muted">
-                📍 Montpellier • ⏱️ Réponse rapide<br />
-                Shooting studio / extérieur / entreprise
+              <p>
+                📍 Montpellier & alentours<br />
+                ⏱️ Réponse sous 24h<br />
+                Studio / extérieur / entreprise
               </p>
             </div>
             <div class="contact-box">
               <h3>Réseaux</h3>
-              <p class="muted">
-                Instagram • LinkedIn • etc.
+              <p>
+                Instagram · LinkedIn
               </p>
             </div>
           </div>
@@ -270,11 +294,21 @@
 
         <footer class="footer">
           <span>© <span id="y"></span> 2Mphoto</span>
-          <span class="muted">Fait avec GitHub Pages</span>
+          <span>Montpellier · GitHub Pages</span>
         </footer>
       </div>
     </section>
+
   </main>
+
+  <!-- ===== Lightbox ===== -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Agrandissement photo" tabindex="-1">
+    <button class="lb-close" aria-label="Fermer">✕</button>
+    <button class="lb-prev" aria-label="Photo précédente">‹</button>
+    <button class="lb-next" aria-label="Photo suivante">›</button>
+    <img class="lb-img" alt="" />
+    <span class="lb-counter"></span>
+  </div>
 
   <script src="assets/js/main.js"></script>
 </body>
