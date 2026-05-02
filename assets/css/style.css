@@ -191,7 +191,13 @@ a     { color: inherit }
     linear-gradient(180deg, rgba(0,0,0,.60), rgba(0,0,0,.08) 48%, rgba(0,0,0,.72)),
     url("../img/hero.jpg") center / cover no-repeat;
 }
-.hero-inner { position: relative; padding: 88px 0 100px }
+.hero-inner {
+  position: relative;
+  padding: 88px 0 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 
 .kicker {
   display: inline-flex;
