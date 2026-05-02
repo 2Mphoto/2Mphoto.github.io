@@ -193,13 +193,13 @@ a     { color: inherit }
 }
 .hero-inner {
   position: relative;
-  padding: 88px 0 100px;
+  padding: 150px 0 100px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
 .hero-text {
-  margin-right: 6vw;
+  margin-right: 14vw;
 }
 
 .kicker {
@@ -303,7 +303,7 @@ a     { color: inherit }
   display: flex; align-items: center;
   overflow: hidden; /* contient les enfants potentiellement larges */
   background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
-  padding: 60px 5vw;
+  padding: 60px 10vw;
 }
 /* Le .container ici doit rester dans la colonne, pas s'étaler sur le viewport */
 .split-content > .container {
