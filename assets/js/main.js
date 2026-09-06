@@ -113,7 +113,7 @@ if (yEl) yEl.textContent = new Date().getFullYear();
         if (res.ok) {
           form.reset();
           if (statusEl) {
-            statusEl.textContent = "✓ Message envoyé — je te réponds rapidement !";
+            statusEl.textContent = "✓ Message envoyé — je vous réponds rapidement !";
             statusEl.classList.add("success");
           }
         } else {
@@ -121,7 +121,7 @@ if (yEl) yEl.textContent = new Date().getFullYear();
         }
       } catch {
         if (statusEl) {
-          statusEl.textContent = "Erreur d'envoi. Réessaie ou contacte-moi directement par email.";
+          statusEl.textContent = "Erreur d'envoi. Réessayez ou contactez-moi directement par email.";
           statusEl.classList.add("error");
         }
       } finally {
